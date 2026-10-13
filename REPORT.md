@@ -27,9 +27,16 @@ This framing drove four decisions:
 
 ## Data preparation & feature engineering
 
-My main rule: **only use what a buyer knows on listing day.** Rating, number of reviews, loves, out-of-stock status and sale price all happen after launch, so they are never features. Also, everything that "learns" from data (medians, category lists, brand stats, the scaler) is fitted on the training set only, inside a `FeatureBuilder` class in `features.py`. Validation and test rows only go through `.transform()`.
+The main rule was to only use what a buyer knows on listing day. 
+- Rating, 
+- number of reviews, 
+- loves, 
+- out-of-stock 
+- status 
+- and sale price 
+all happen after launch, so they are never features. Also, everything that "learns" from data (medians, category lists, brand stats, the scaler) is fitted on the training set only, inside a `FeatureBuilder` class in `features.py`. Validation and test rows only go through `.transform()`.
 
-What I built (62 features in total):
+I built 62 features in total:
 
 - **Price on a log scale**, because prices are very skewed.
 - **Relative price**: price compared with the median of its sub-category (is $50 expensive *for a foundation*?), the same for price per mL/g (I parsed the size text into a number), and price compared with the brand's usual price.
@@ -56,7 +63,7 @@ Then everything is standardised (mean 0, std 1) so the coefficients are comparab
 
 So the engineering adds about +0.09 AUC, and the brand stats matter most.
 
-**What didn't work: highlight tags.** I built 20 features from the "highlights" tags (Vegan, Cruelty-Free, Clean at Sephora…). Adding them made validation AUC *worse* (0.815). When I investigated, I found **concept drift**: Sephora started tagging products much more over time ("Cruelty-Free" is on 13% of training products but 36% of test products). In the old products, having tags meant a 31% hit rate vs 15% without, probably because popular products were the ones that got re-tagged. In the newest products that pattern disappears (24% vs 32%). The model was learning a pattern that is no longer true, so I turned the tags off (`use_highlights=False`) and kept the code to show the check.
+**What didn't work: highlight tags.** I built 20 features from the "highlights" tags (Vegan, Cruelty-Free, Clean at Sephora…). Adding them made validation AUC *worse* (0.815). When I investigated, I found **concept drift**: Sephora started tagging products much more over time we see that "Cruelty-Free" is on 13% of training products but 36% of test products. In the old products, having tags meant a 31% hit rate vs 15% without, probably because popular products were the ones that got re-tagged. In the newest products that pattern disappears (24% vs 32%). The model was learning a pattern that is no longer true, so I turned the tags off (`use_highlights=False`) and kept the code to show the check.
 
 ## Modeling: three implementations, one model
 
@@ -106,4 +113,4 @@ Files: `features.py` (cleaning, target, `FeatureBuilder`), `modeling.py` (shared
 
 ## Generative AI use disclosure
 
-I used Claude to help find the dataset, write and debug the code, and draft this report. I reviewed the code and results, and I made sure I can explain every step myself.
+I used Claude as a partner tool to support parts of the project, including dataset identification, writing and code debugging, and the wording of certain sections of the report that were more challenging to explain. I reviewed the final content and results myself and ensured that I fully understood the methods and steps involved.
