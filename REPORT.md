@@ -7,7 +7,7 @@
 
 ## Dataset
 
-I used the Sephora Products dataset (originally published on Kaggle, scraped from sephora.com in 2023; I downloaded a copy from a public GitHub repo). It's saved in `data/product_info.csv`. Each row is one product sold at Sephora. There are 8,494 rows and 27 columns: brand, price, size, category, number of shades, flags like "Sephora exclusive" or "limited edition", and `loves_count` (how many shoppers saved the product with the heart button).
+I used the Sephora Products dataset that is published on Kaggle, scraped from sephora.com in 2023; I downloaded a copy from a public GitHub repo. It's saved in `data/product_info.csv`. Each row is one product sold at Sephora. There are 8,494 rows and 27 columns: brand, price, size, category, number of shades, flags like "Sephora exclusive" or "limited edition", and `loves_count` (how many shoppers saved the product with the heart button).
 
 I picked it because I'm interested in beauty and luxury brands, and because it's messy in interesting ways: sizes are written as text ("3.4 oz/ 100 mL"), and the popularity numbers depend a lot on how long a product has been on the site. That made feature engineering actually matter.
 
@@ -106,4 +106,4 @@ Files: `features.py` (cleaning, target, `FeatureBuilder`), `modeling.py` (shared
 
 ## Generative AI use disclosure
 
-I used Claude (Anthropic) to help find the dataset, write and debug the code, and draft this report. I reviewed the code and results, and I made sure I can explain every step myself.
+I used Claude to help find the dataset, write and debug the code, and draft this report. I reviewed the code and results, and I made sure I can explain every step myself.
