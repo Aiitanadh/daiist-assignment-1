@@ -60,7 +60,7 @@ So the engineering adds about +0.09 AUC, and the brand stats matter most.
 
 ## Modeling: three implementations, one model
 
-My target is binary (hit or not), so I used **logistic regression**. All three versions minimise exactly the same objective: mean binary cross-entropy + an L2 penalty of (1 / (2·C·n))·‖w‖². This is sklearn's penalty rewritten for an average loss, and the intercept is not penalised.
+My target is binary (hit or not), so I used **logistic regression**. All three versions minimise exactly the same objective: mean binary cross-entropy + an L2 penalty of (1 / (2·C·n))·‖w‖². This is sklearn's penalty rewritten for an average loss, and the intercept is not penalised. 
 
 - **scikit-learn**: `LogisticRegression` with the L-BFGS solver. I tried C in {0.0003 … 1} and chose **C = 0.01** because it had the lowest validation log-loss (0.430).
 - **Manual PyTorch**: raw tensors `w` and `b` starting at zero, full-batch gradient descent for 3,000 epochs. Each step: forward pass, loss, `loss.backward()`, update `w -= lr * w.grad` inside `torch.no_grad()`, then zero the gradients. Learning rate 0.5.
